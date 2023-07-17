@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/TripConsumeApp/appsettings.json
+/TripConsumeApp/appsettings.Development.json
+/TripConsumeApp/bin/Debug/net6.0
+/TripConsumeApp/obj
+/TripConsumeApp.BLL/bin/Debug/net6.0
+/TripConsumeApp.BLL/obj
+/TripConsumeApp.DAL/bin/Debug/net6.0
+/TripConsumeApp.DAL/obj
+/TripConsumeApp.Models/bin/Debug/net6.0
+/TripConsumeApp.Models/obj
+/.vs
+/Anotations
