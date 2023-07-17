@@ -1,0 +1,74 @@
+﻿@model IEnumerable<TripConsumeApp.Entities.Vehicle>
+
+@{
+    ViewData["Title"] = "Vehiculos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="conainer p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Lista Vehiculos</h2>
+
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Vehicle" asp-action="NewVehicle" class="btn btn-primary"> Nuevo Vehiculo</a>
+        </div>
+
+    </div>
+    <br />
+
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Nombre Vehiculo</th>
+                    <th>Tipo Vehiculo</th>
+                    <th>Capacidad Tanque</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    
+                    <tr>
+                        <th width="25%">@item.VehicleName</th>
+                        <th width="10%">@item.VehicleType</th>
+                        <th width="10%">@item.TankCapacity</th>
+                        
+                        <th class="text-center">
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Vehicle" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-2">
+                                    Editar
+                                </a>
+                                <a asp-controller="Vehicle" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-2">
+                                    Eliminar
+                                </a>
+                            </div>
+
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
+                        <th>
+                        <div class="w-75 btn-group" role="group">
+                            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
+                            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
+                        </div>
+                        </th>
+                    </tr>
+                } 
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <p>No hay elementos</p>
+    }
+
+</div>
+

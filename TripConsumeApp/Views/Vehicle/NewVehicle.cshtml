@@ -1,0 +1,68 @@
+﻿@model TripConsumeApp.Entities.Vehicle
+
+@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NewVehicle</title>
+</head>
+<body>
+    <form method="post" asp-action="NewVehicle">
+        <input type="hidden" asp-for="UserId" />
+        <div class="border p-3">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+            </div>
+
+
+            <div class="form-group row">
+                <h2 class="text-info pl-3">Nuevo Vehiculo</h2>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="VehicleName" class="form-label">Nombre Vehiculo</label>
+                        <input asp-for="VehicleName" class="form-control" />
+                        <span asp-validation-for="VehicleName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="VehicleType" class="form-label">Tipo</label>
+                        <input asp-for="VehicleType" class="form-control" />
+                        <span asp-validation-for="VehicleType" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="TankCapacity" class="form-label">Capacidad Tanque</label>
+                        <input asp-for="TankCapacity" class="form-control" />
+                        @*<span asp-validation-for="TankCapacity" class="text-danger"></span>*@
+                    </div>
+                </div>
+                <br />
+                <div class="d-grid gap-2 d-md-block">
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                    <a asp-controller="Vehicle" asp-action="Index" class="btn btn-success">Regresar</a>
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </form>
+</body>
+</html>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

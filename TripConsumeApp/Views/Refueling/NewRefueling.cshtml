@@ -1,0 +1,76 @@
+﻿@model TripConsumeApp.Entities.Refueling
+
+@{
+    ViewData["Title"] = "NewRefueling";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="NewRefueling">
+    
+    <div class="border p-3">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+
+
+        <div class="form-group row">
+            <h2 class="text-info pl-3">Nuevo Vehiculo</h2>
+        </div>
+        <div class="container">
+            @*<div class="row">
+                <div class="col-md-6">
+                    <label asp-for="DateTime" class="form-label">FechaHora</label>
+                    <input asp-for="DateTime" class="form-control" />
+                    <span asp-validation-for="DateTime" class="text-danger"></span>
+                </div>
+            </div>*@
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Amount" class="form-label">Monto</label>
+                    <input asp-for="Amount" class="form-control" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Kilometers" class="form-label">Distancia Recorrida</label>
+                    <input asp-for="Kilometers" class="form-control" />
+                    <span asp-validation-for="Kilometers" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Liters" class="form-label">Litros Cargados</label>
+                    <input asp-for="Liters" class="form-control" />
+                    <span asp-validation-for="Liters" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Comments" class="form-label">Comentarios</label>
+                    <input asp-for="Comments" class="form-control" />
+                    <span asp-validation-for="Comments" class="text-danger"></span>
+                </div>
+
+            </div>
+            <input type="hidden" asp-for="VehicleId" />
+            <br />
+            <div class="d-grid gap-2 d-md-block">
+                <button type="submit" class="btn btn-primary">Crear</button>
+                <a asp-controller="Vehicle" asp-action="Index" class="btn btn-success">Regresar</a>
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
