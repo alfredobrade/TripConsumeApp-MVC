@@ -44,11 +44,25 @@ namespace TripConsumeApp.BLL.Services
             }
         }
 
-        public async Task<Vehicle> Get(Vehicle vehicle)
+        public async Task<Vehicle> Get(int id)
         {
             try
             {
-                return await _repository.Get(v => v.Id == vehicle.Id); //TODO: agregar la logica para que el usuario solo vea su moto
+                return await _repository.Get(v => v.Id == id); //TODO: agregar la logica para que el usuario solo vea su moto
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetList(int userId)
+        {
+            try
+            {
+                return await _repository.GetList(v => v.UserId == userId); //TODO: agregar la logica para que el usuario solo vea su moto
 
             }
             catch (Exception)

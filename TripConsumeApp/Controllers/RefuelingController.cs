@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using TripConsumeApp.BLL.ServiceInterfaces;
 using TripConsumeApp.Entities;
 using TripConsumeApp.Models;
@@ -18,28 +19,41 @@ namespace TripConsumeApp.Controllers
         // GET: RefuelingController
         public async Task<ActionResult> Index(int Id)
         {
-            IEnumerable<Refueling> list = await _service.GetAll(Id);
-            var resultList = new List<RefuelingVM>();
-            var vehicleName = await _service.GetVehicleName(list.First().VehicleId);
-            foreach (var item in list)
+            try
             {
-                var result = new RefuelingVM
-                {
-                    Id = item.Id,
-                    DateTime = item.DateTime,
-                    Amount = item.Amount,
-                    Liters = item.Liters,
-                    Kilometers = item.Kilometers,
-                    KmPerLiter = (item.Kilometers / item.Liters),
-                    Liters100Km = (item.Liters / (item.Kilometers / 100)),
-                    Comments = item.Comments,
-                    VehicleId = item.VehicleId,
-                    VehicleName = vehicleName
-                };
-                resultList.Add(result);
-            }
+                IEnumerable<Refueling> list = await _service.GetAll(Id);
+                var resultList = new List<RefuelingVM>();
+                var vehicleName = await _service.GetVehicleName(Id);
 
-            return View(resultList.OrderByDescending(r => r.DateTime));
+
+                foreach (var item in list)
+                {
+                    var result = new RefuelingVM
+                    {
+                        Id = item.Id,
+                        DateTime = item.DateTime,
+                        Amount = item.Amount,
+                        Liters = item.Liters,
+                        Kilometers = item.Kilometers,
+                        KmPerLiter = (item.Kilometers / item.Liters),
+                        Liters100Km = (item.Liters / (item.Kilometers / 100)),
+                        Comments = item.Comments,
+                        VehicleId = item.VehicleId,
+                        VehicleName = vehicleName
+                    };
+                    resultList.Add(result);
+
+
+                }
+
+                return View(resultList.OrderByDescending(r => r.DateTime));
+
+            }
+            catch (Exception)
+            {
+                return View(new List<RefuelingVM>());
+                throw;
+            }
         }
 
         // GET: RefuelingController/Details/5
@@ -67,7 +81,7 @@ namespace TripConsumeApp.Controllers
                 refueling.Id = 0; //TODO: no se porque puta me llega el Id igual que el VehicleId
                 await _service.Create(refueling);
                 //int Id = refueling.VehicleId;
-                return RedirectToAction("Index", "Refueling" , new { Id = refueling.VehicleId }); //el tercer parametro era un objeto por eso le pase de esta manera
+                return RedirectToAction("Index", "Refueling", new { Id = refueling.VehicleId }); //el tercer parametro era un objeto por eso le pase de esta manera
             }
             catch
             {

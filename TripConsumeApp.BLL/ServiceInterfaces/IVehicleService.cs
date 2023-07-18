@@ -12,9 +12,11 @@ namespace TripConsumeApp.BLL.ServiceInterfaces
         Task<Vehicle> Create(Vehicle vehicle);
         Task<Vehicle> Update(Vehicle vehicle);
         Task<bool> Delete(Vehicle vehicle);
-        Task<Vehicle> Get(Vehicle vehicle);
+        Task<Vehicle> Get(int id);
         Task<IEnumerable<Vehicle>> GetAll(string email);
-        
+        Task<IEnumerable<Vehicle>> GetList(int userId);
+
+
 
     }
 }

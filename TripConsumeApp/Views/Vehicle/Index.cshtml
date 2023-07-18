@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TripConsumeApp.Entities.Vehicle>
+﻿@model VehicleListVM
 
 @{
     ViewData["Title"] = "Vehiculos";
@@ -11,35 +11,39 @@
             <h2 class="text-primary">Lista Vehiculos</h2>
 
         </div>
+
         <div class="col-6 text-end">
-            <a asp-controller="Vehicle" asp-action="NewVehicle" class="btn btn-primary"> Nuevo Vehiculo</a>
+            <a asp-controller="Vehicle" asp-action="NewVehicle" asp-route-Id="@Model.UserId" class="btn btn-primary"> Nuevo Vehiculo</a>
         </div>
 
     </div>
     <br />
 
-    @if (Model.Count() > 0)
+    @if (Model.Vehicles.Count() > 0)
     {
         <table class="table table-bordered table-striped" style="width:100%">
             <thead>
                 <tr>
                     <th>Nombre Vehiculo</th>
-                    <th>Tipo Vehiculo</th>
+                    @*<th>Tipo Vehiculo</th>*@
                     <th>Capacidad Tanque</th>
+                    <th>Consumo Promedio</th>
+                    <th>Autonomía Prom</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Vehicles)
                 {
-                    
+
                     <tr>
                         <th width="25%">@item.VehicleName</th>
-                        <th width="10%">@item.VehicleType</th>
+                        @*<th width="10%">@item.VehicleType</th>*@
                         <th width="10%">@item.TankCapacity</th>
-                        
+                        <th width="10%">Muy Pronto!</th>
+                        <th width="10%">Muy Pronto!</th>
                         <th class="text-center">
-                            <div class="w-75 btn-group" role="group">
+                            <div width="30" class="w-75 btn-group" role="group">
                                 <a asp-controller="Vehicle" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-2">
                                     Editar
                                 </a>
@@ -50,17 +54,19 @@
 
 
                         </th>
+                        
                     </tr>
                     <tr>
-                        <th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>
+                        @*<th>hola soy una linea abajo @item.UserId  @item.Saludar()</th>*@
                         <th>
-                        <div class="w-75 btn-group" role="group">
-                            <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
-                            <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
-                        </div>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Refueling" asp-action="NewRefueling" asp-route-Id="@item.Id" class="btn btn-info">Recargar</a>
+                                <a asp-controller="Refueling" asp-action="Index" asp-route-Id="@item.Id" class="btn btn-info mx-2">Historial</a>
+                            </div>
                         </th>
+                        
                     </tr>
-                } 
+                }
             </tbody>
 
         </table>

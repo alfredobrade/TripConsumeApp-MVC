@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using TripConsumeApp.BLL.ServiceInterfaces;
 using TripConsumeApp.Entities;
+using TripConsumeApp.Models;
 
 namespace TripConsumeApp.Controllers
 {
@@ -17,7 +19,7 @@ namespace TripConsumeApp.Controllers
             _service = service;
             _userName = httpContextAccessor.HttpContext.User.Identity.Name;
             _userEmail = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
-            
+
         }
 
         // GET: VehicleController
@@ -27,10 +29,29 @@ namespace TripConsumeApp.Controllers
         //}
 
         // GET: VehicleController/Details/5
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int Id)
         {
-            IEnumerable<Vehicle> vehicleList = await _service.GetAll(_userEmail);
-            return View(vehicleList);
+
+            try
+            {
+                IEnumerable<Vehicle> vehicleList = await _service.GetAll(_userEmail);
+                if (vehicleList.IsNullOrEmpty()) vehicleList = await _service.GetList(Id); //userId
+
+                var vehicleVM = new VehicleListVM()
+                {
+                    Vehicles = vehicleList,
+                    UserId = Id
+                };
+
+
+                return View(vehicleVM);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // GET: VehicleController/Details/5
@@ -40,9 +61,9 @@ namespace TripConsumeApp.Controllers
         }
 
         // GET: VehicleController/Create
-        public async Task<ActionResult> NewVehicle(int userId)
+        public async Task<ActionResult> NewVehicle(int Id)
         {
-            var vehicle = new Vehicle { UserId = userId };
+            var vehicle = new Vehicle { UserId = Id };
             //var user = await _service.GetAll(_userEmail);
             //var vehicle = new Vehicle { UserId = user.First().UserId };
             return View(vehicle);
@@ -55,10 +76,10 @@ namespace TripConsumeApp.Controllers
         {
             try
             {
-                var user = await _service.GetAll(_userEmail);
-                vehicle.UserId = user.First().UserId;
+                //var user = await _service.GetAll(_userEmail);
+                //vehicle.UserId = user.First().UserId;
 
-
+                vehicle.Id = 0; //Id le pone el mismo valor que UserId
                 var result = await _service.Create(vehicle);
 
                 return RedirectToAction(nameof(Index));

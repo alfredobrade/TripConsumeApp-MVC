@@ -51,7 +51,7 @@ namespace TripConsumeApp.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return RedirectToAction("Index", "Vehicle");
+                return RedirectToAction("Index", "Vehicle", new {Id = _user.Id});
             }
 
             return View(_user);
@@ -63,6 +63,7 @@ namespace TripConsumeApp.Controllers
 
             return RedirectToAction("Index", "Access");
         }
+
 
     }
 }
