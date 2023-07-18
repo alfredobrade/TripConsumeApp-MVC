@@ -16,3 +16,8 @@
 /Anotations
 /appsettings.Development.json
 /appsettings.json
+/TripConsumeApp/bin/Release/net6.0
+/TripConsumeApp/Properties/PublishProfiles
+/TripConsumeApp.Models/bin/Release/net6.0
+/TripConsumeApp.DAL/bin/Release/net6.0
+/TripConsumeApp.BLL/bin/Release/net6.0
