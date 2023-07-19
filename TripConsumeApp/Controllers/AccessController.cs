@@ -19,17 +19,17 @@ namespace TripConsumeApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var user = new UserVM();
-            user.UsersQtity = await _service.UsersQtity();
-            return View(user);
+            var userVM = new UserVM();
+            userVM.UsersQtity = await _service.UsersQtity();
+            return View(userVM);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(UserVM user)
+        public async Task<IActionResult> Index(UserVM userVM)
         {
             //DBInMemory dbUser = new DBInMemory();
             //var dbUser = await _service.GetByEmail(user.Email);
-            var _user = await _service.ValidateUser(user.Email, user.Password);
+            var _user = await _service.ValidateUser(userVM.Email, userVM.Password);
 
             if (_user != null)
             {
@@ -52,12 +52,12 @@ namespace TripConsumeApp.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-                return RedirectToAction("Index", "Vehicle", new {Id = _user.Id});
+                return RedirectToAction("Index", "Vehicle", new { UserId = _user.Id});
             }
 
-            user.Email = user.Email + " es Incorrecto o no existe";
-            user.UsersQtity = await _service.UsersQtity();
-            return View(user);
+            userVM.Email = userVM.Email + " es Incorrecto o no existe";
+            userVM.UsersQtity = await _service.UsersQtity();
+            return View(userVM); //TODO: corregir esto
         }
 
         public async Task<IActionResult> Exit()

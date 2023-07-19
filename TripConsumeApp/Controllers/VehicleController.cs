@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using TripConsumeApp.BLL.ServiceInterfaces;
@@ -23,26 +24,24 @@ namespace TripConsumeApp.Controllers
         }
 
         // GET: VehicleController
-        //public async Task<ActionResult> Index()
-        //{
-        //    return View();
-        //}
-
-        // GET: VehicleController/Details/5
-        public async Task<ActionResult> Index(int Id)
+        public async Task<ActionResult> Index(int UserId)
         {
 
             try
             {
-                IEnumerable<Vehicle> vehicleList = await _service.GetAll(_userEmail);
-                if (vehicleList.IsNullOrEmpty()) vehicleList = await _service.GetList(Id); //userId
+                var vehicleList = await _service.GetAll(_userEmail);
+                if (vehicleList.IsNullOrEmpty()) vehicleList = await _service.GetList(UserId);
 
+                foreach (var item in vehicleList)
+                {
+                    item.AverageConsume = await _service.AverageConsume(item.Id);
+                    item.AverageAutonomy = item.TankCapacity * item.AverageConsume;
+                }
                 var vehicleVM = new VehicleListVM()
                 {
                     Vehicles = vehicleList,
-                    UserId = Id
+                    UserId = UserId
                 };
-
 
                 return View(vehicleVM);
 
@@ -54,16 +53,11 @@ namespace TripConsumeApp.Controllers
             }
         }
 
-        // GET: VehicleController/Details/5
-        public async Task<ActionResult> Details(int id)
-        {
-            return View();
-        }
-
+  
         // GET: VehicleController/Create
-        public async Task<ActionResult> NewVehicle(int Id)
+        public async Task<ActionResult> NewVehicle(int UserId)
         {
-            var vehicle = new Vehicle { UserId = Id };
+            var vehicle = new Vehicle { UserId = UserId };
             //var user = await _service.GetAll(_userEmail);
             //var vehicle = new Vehicle { UserId = user.First().UserId };
             return View(vehicle);
@@ -82,7 +76,7 @@ namespace TripConsumeApp.Controllers
                 vehicle.Id = 0; //Id le pone el mismo valor que UserId
                 var result = await _service.Create(vehicle);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Vehicle", new { UserId = vehicle.UserId });
             }
             catch
             {
@@ -91,11 +85,11 @@ namespace TripConsumeApp.Controllers
         }
 
         // GET: VehicleController/Edit/5
-        public async Task<ActionResult> Edit(int Id)
+        public async Task<ActionResult> Edit(int VehicleId)
         {
             try
             {
-                var vehicle = await _service.Get(Id);
+                var vehicle = await _service.Get(VehicleId);
                 return View(vehicle);
             }
             catch (Exception)
@@ -114,7 +108,7 @@ namespace TripConsumeApp.Controllers
             {
                 if (vehicle != null) await _service.Update(vehicle);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Vehicle", new { UserId = vehicle.UserId });
             }
             catch
             {
@@ -123,11 +117,11 @@ namespace TripConsumeApp.Controllers
         }
 
         // GET: VehicleController/Delete/5
-        public async Task<ActionResult> Delete(int Id)
+        public async Task<ActionResult> Delete(int VehicleId)
         {
             try
             {
-                var vehicle = await _service.Get(Id);
+                var vehicle = await _service.Get(VehicleId);
                 return View(vehicle);
             }
             catch (Exception)
@@ -144,13 +138,15 @@ namespace TripConsumeApp.Controllers
         {
             try
             {
+
                 if (vehicle.Id != 0) await _service.Delete(vehicle);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Vehicle", new { UserId = vehicle.UserId });
             }
             catch
             {
-                return View();
+                return View(vehicle);
+
             }
         }
     }

@@ -30,5 +30,20 @@ namespace TripConsumeApp.DAL.Repository
 				throw;
 			}
         }
+
+        public async Task<IQueryable<Refueling>> RefuelingsList(int Id)
+        {
+			try
+			{
+				var list =  _context.Refuelings.Where(v => v.VehicleId == Id);
+				return list;
+
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+        }
     }
 }

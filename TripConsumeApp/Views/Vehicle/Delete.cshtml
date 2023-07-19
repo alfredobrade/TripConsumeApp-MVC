@@ -17,6 +17,8 @@
 <body>
     <form method="post" asp-action="Delete">
         <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="Id" />
+
         <div class="border p-3">
 
             <div asp-validation-summary="ModelOnly" class="text-danger">
@@ -49,7 +51,7 @@
                 <br />
                 <div class="d-grid gap-2 d-md-block">
                     <button type="submit" class="btn btn-primary">Eliminar</button>
-                    <a asp-controller="Vehicle" asp-action="Index" class="btn btn-success">Regresar</a>
+                    <a asp-controller="Vehicle" asp-action="Index" asp-route-UserId="@Model.UserId" class="btn btn-success">Regresar</a>
 
                 </div>
             </div>

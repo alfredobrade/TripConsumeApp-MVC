@@ -15,6 +15,9 @@ namespace TripConsumeApp.Entities
         public string VehicleName { get; set; }
         public int? VehicleType { get; set; } //1 auto, 2 moto 
         public double? TankCapacity { get; set; }
+        //no se guarda en base de datos
+        public double? AverageConsume { get; set; }
+        public double? AverageAutonomy { get; set; }
 
         public int UserId { get; set; }
         public User User { get; set; }

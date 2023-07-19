@@ -15,7 +15,7 @@ namespace TripConsumeApp.BLL.ServiceInterfaces
         Task<Vehicle> Get(int id);
         Task<IEnumerable<Vehicle>> GetAll(string email);
         Task<IEnumerable<Vehicle>> GetList(int userId);
-
+        Task<double?> AverageConsume(int Id);
 
 
     }

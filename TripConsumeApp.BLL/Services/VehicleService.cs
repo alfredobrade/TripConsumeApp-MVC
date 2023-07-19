@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,8 +50,8 @@ namespace TripConsumeApp.BLL.Services
         {
             try
             {
-                return await _repository.Get(v => v.Id == id); //TODO: agregar la logica para que el usuario solo vea su moto
-
+                var result = await _repository.Get(v => v.Id == id); //TODO: agregar la logica para que el usuario solo vea su moto
+                return result;
             }
             catch (Exception)
             {
@@ -62,8 +64,9 @@ namespace TripConsumeApp.BLL.Services
         {
             try
             {
-                return await _repository.GetList(v => v.UserId == userId); //TODO: agregar la logica para que el usuario solo vea su moto
-
+                var list = await _repository.GetList(v => v.UserId == userId); //TODO: agregar la logica para que el usuario solo vea su moto
+                
+                return await list.ToListAsync();
             }
             catch (Exception)
             {
@@ -77,7 +80,7 @@ namespace TripConsumeApp.BLL.Services
             try
             {
                 var list = await _repository.GetByEmail(email);
-                return list;
+                return await list.ToListAsync();
             }
             catch (Exception)
             {
@@ -97,6 +100,38 @@ namespace TripConsumeApp.BLL.Services
 
                 throw;
             }
+        }
+
+        public async Task<double?> AverageConsume(int Id)
+        {
+            try
+            {
+                var refuelingList = await _repository.RefuelingsList(Id);
+                var refuelings = refuelingList.ToList();
+                if (!refuelings.IsNullOrEmpty())
+                {
+                    double? totalConsume = 0;
+                    var count = 0;
+
+                    foreach (var item in refuelings)
+                    {
+                        var consume = item.Kilometers / item.Liters;
+                        totalConsume += consume;
+                        count++;
+                    }
+
+                    return totalConsume / count;
+                }
+
+                return 0;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
     }
 }

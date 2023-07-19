@@ -10,5 +10,8 @@ namespace TripConsumeApp.DAL.IRepository
     public interface IVehicleRepository : IGenericRepository<Vehicle>
     {
         Task<IQueryable<Vehicle>> GetByEmail(string email);
+        //Task<Vehicle> GetVehicleRefuelings(int Id);
+
+        Task<IQueryable<Refueling>> RefuelingsList(int Id);
     }
 }

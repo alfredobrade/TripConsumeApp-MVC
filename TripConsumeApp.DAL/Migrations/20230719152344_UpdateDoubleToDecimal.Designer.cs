@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripConsumeApp.DAL.Context;
 
@@ -11,9 +12,11 @@ using TripConsumeApp.DAL.Context;
 namespace TripConsumeApp.DAL.Migrations
 {
     [DbContext(typeof(TripConsumeAppContext))]
-    partial class TripConsumeAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230719152344_UpdateDoubleToDecimal")]
+    partial class UpdateDoubleToDecimal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace TripConsumeApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("decimal(10, 2)");
 
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
@@ -39,11 +42,11 @@ namespace TripConsumeApp.DAL.Migrations
                     b.Property<DateTime?>("DateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("Kilometers")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Kilometers")
+                        .HasColumnType("decimal(10, 2)");
 
-                    b.Property<double?>("Liters")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Liters")
+                        .HasColumnType("decimal(10, 2)");
 
                     b.Property<int?>("TripId")
                         .HasColumnType("int");
@@ -112,14 +115,14 @@ namespace TripConsumeApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("AverageAutonomy")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("AverageAutonomy")
+                        .HasColumnType("decimal(10, 2)");
 
-                    b.Property<double?>("AverageConsume")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("AverageConsume")
+                        .HasColumnType("decimal(10, 2)");
 
-                    b.Property<double?>("TankCapacity")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TankCapacity")
+                        .HasColumnType("decimal(10, 2)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
