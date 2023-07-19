@@ -5,6 +5,7 @@ using System.Security.Claims;
 using TripConsumeApp.Models;
 using TripConsumeApp.Models.Data;
 using TripConsumeApp.BLL.ServiceInterfaces;
+using Azure.Identity;
 
 namespace TripConsumeApp.Controllers
 {
@@ -15,6 +16,7 @@ namespace TripConsumeApp.Controllers
         {
             _service = service;
         }
+
         public async Task<IActionResult> Index()
         {
             var user = new UserVM();
@@ -26,7 +28,6 @@ namespace TripConsumeApp.Controllers
         public async Task<IActionResult> Index(UserVM user)
         {
             //DBInMemory dbUser = new DBInMemory();
-
             //var dbUser = await _service.GetByEmail(user.Email);
             var _user = await _service.ValidateUser(user.Email, user.Password);
 
@@ -54,7 +55,9 @@ namespace TripConsumeApp.Controllers
                 return RedirectToAction("Index", "Vehicle", new {Id = _user.Id});
             }
 
-            return View(_user);
+            user.Email = user.Email + " es Incorrecto o no existe";
+            user.UsersQtity = await _service.UsersQtity();
+            return View(user);
         }
 
         public async Task<IActionResult> Exit()

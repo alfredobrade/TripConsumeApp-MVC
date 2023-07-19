@@ -21,6 +21,7 @@ namespace TripConsumeApp.DAL.Context
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<Refueling> Refuelings { get; set; }
+        public virtual DbSet<Trip> Trips { get; set; }
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

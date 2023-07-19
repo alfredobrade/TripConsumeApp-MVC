@@ -1,21 +1,18 @@
 ﻿@model TripConsumeApp.Entities.Vehicle
 
 @{
-
     Layout = null;
 }
-
-<!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>NewVehicle</title>
+    <title>EditVehicle</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
 </head>
 <body>
-    <form method="post" asp-action="NewVehicle">
+    <form method="post" asp-action="Edit">
         <input type="hidden" asp-for="UserId" />
         <div class="border p-3">
 
@@ -24,7 +21,7 @@
 
 
             <div class="form-group row">
-                <h2 class="text-info pl-3">Nuevo Vehiculo</h2>
+                <h2 class="text-info pl-3">Editar Vehiculo</h2>
             </div>
             <div class="container">
                 <div class="row">
@@ -35,11 +32,11 @@
                     </div>
                 </div>
                 @*<div class="row">
-                    <div class="col-md-6">
-                        <label asp-for="VehicleType" class="form-label">Tipo</label>
-                        <input asp-for="VehicleType" class="form-control" />
-                        <span asp-validation-for="VehicleType" class="text-danger"></span>
-                    </div>
+                <div class="col-md-6">
+                <label asp-for="VehicleType" class="form-label">Tipo</label>
+                <input asp-for="VehicleType" class="form-control" />
+                <span asp-validation-for="VehicleType" class="text-danger"></span>
+                </div>
                 </div>*@
                 <div class="row">
                     <div class="col-md-6">
@@ -50,8 +47,8 @@
                 </div>
                 <br />
                 <div class="d-grid gap-2 d-md-block">
-                    <button type="submit" class="btn btn-primary">Crear</button>
-                    <a asp-controller="Vehicle" asp-action="Index" asp-route-Id="@Model.UserId" class="btn btn-success">Regresar</a>
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                    <a asp-controller="Vehicle" asp-action="Index" class="btn btn-success">Regresar</a>
 
                 </div>
             </div>
@@ -67,6 +64,7 @@
 
 </body>
 </html>
+
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />

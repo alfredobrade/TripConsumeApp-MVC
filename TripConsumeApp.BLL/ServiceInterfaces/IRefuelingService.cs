@@ -10,7 +10,7 @@ namespace TripConsumeApp.BLL.ServiceInterfaces
     public interface IRefuelingService
     {
         Task<Refueling> Create(Refueling refueling);
-        Task<Refueling> Update(Refueling refueling);
+        Task<bool> Update(Refueling refueling);
         Task<bool> Delete(Refueling refueling);
         Task<Refueling> Get(Refueling refueling);
         Task<IEnumerable<Refueling>> GetAll(int vehicleId);

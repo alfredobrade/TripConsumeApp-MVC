@@ -21,6 +21,7 @@ builder.Services.AddScoped<IRefuelingRepository, RefuelingRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IRefuelingService, RefuelingService>();
+builder.Services.AddScoped<ITripService, TripService>();
 //---
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>

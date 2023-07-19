@@ -44,9 +44,17 @@ namespace TripConsumeApp.BLL.Services
             }
         }
 
-        public Task<User> Edit(User user)
+        public async Task<bool> Edit(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Edit(user);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<User> GetByEmail(string email)

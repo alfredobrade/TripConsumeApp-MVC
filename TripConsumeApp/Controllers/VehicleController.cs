@@ -91,39 +91,61 @@ namespace TripConsumeApp.Controllers
         }
 
         // GET: VehicleController/Edit/5
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int Id)
         {
-            return View();
+            try
+            {
+                var vehicle = await _service.Get(Id);
+                return View(vehicle);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: VehicleController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(Vehicle vehicle)
         {
             try
             {
+                if (vehicle != null) await _service.Update(vehicle);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View(vehicle);
             }
         }
 
         // GET: VehicleController/Delete/5
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int Id)
         {
-            return View();
+            try
+            {
+                var vehicle = await _service.Get(Id);
+                return View(vehicle);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         // POST: VehicleController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Vehicle vehicle)
         {
             try
             {
+                if (vehicle.Id != 0) await _service.Delete(vehicle);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

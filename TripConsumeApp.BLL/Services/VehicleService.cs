@@ -86,9 +86,17 @@ namespace TripConsumeApp.BLL.Services
             }
         }
 
-        public Task<Vehicle> Update(Vehicle vehicle)
+        public async Task<bool> Update(Vehicle vehicle)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Edit(vehicle);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

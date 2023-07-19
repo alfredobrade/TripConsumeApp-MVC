@@ -18,7 +18,7 @@ namespace TripConsumeApp.Models
 
         //public string[] Roles { get; set; }
 
-        public int UsersQtity { get; set; } = 0;
+        public int UsersQtity { get; set; } = 0; //cuando le puse nuleable me aparecio con un circulo rojo con cruz que no andaba en el metodo del AccessIndex
 
     }
 }

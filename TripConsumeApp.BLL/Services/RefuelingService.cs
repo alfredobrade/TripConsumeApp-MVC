@@ -31,14 +31,30 @@ namespace TripConsumeApp.BLL.Services
             }
         }
 
-        public Task<bool> Delete(Refueling refueling)
+        public async Task<bool> Delete(Refueling refueling)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Delete(refueling);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public Task<Refueling> Get(Refueling refueling)
+        public async Task<Refueling> Get(Refueling refueling)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Get(r => r.Id == refueling.Id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Refueling>> GetAll(int vehicleId)
@@ -54,9 +70,17 @@ namespace TripConsumeApp.BLL.Services
             }
         }
 
-        public Task<Refueling> Update(Refueling refueling)
+        public async Task<bool> Update(Refueling refueling)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _repository.Edit(refueling);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<string> GetVehicleName(int vehicleId)
