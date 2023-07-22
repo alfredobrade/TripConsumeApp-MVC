@@ -105,7 +105,7 @@ namespace TripConsumeApp.DAL.Repository
         {
             try
             {
-                return await _context.Users.CountAsync();
+                return await _context.Set<TEntity>().CountAsync();
             }
             catch (Exception)
             {

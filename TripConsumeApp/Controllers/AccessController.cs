@@ -38,7 +38,7 @@ namespace TripConsumeApp.Controllers
                 {
                     new Claim(ClaimTypes.Name, _user.UserName),
                     new Claim(ClaimTypes.Email, _user.Email)
-                    //new Claim("Email" , user.Email), //es otra forma que muestra en el video
+                    //new Claim("Email" , user.Email), //asi se pone cuando es un nombre adicional que se agrega 
 
                 };
 
