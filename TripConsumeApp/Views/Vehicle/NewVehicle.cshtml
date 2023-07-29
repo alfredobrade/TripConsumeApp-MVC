@@ -29,7 +29,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <label asp-for="VehicleName" class="form-label">Nombre Vehiculo</label>
+                        <label asp-for="VehicleName" class="form-label">Nombre del Vehiculo</label>
                         <input asp-for="VehicleName" class="form-control" />
                         <span asp-validation-for="VehicleName" class="text-danger"></span>
                     </div>
@@ -43,9 +43,16 @@
                 </div>*@
                 <div class="row">
                     <div class="col-md-6">
-                        <label asp-for="TankCapacity" class="form-label">Capacidad Tanque</label>
+                        <label asp-for="TankCapacity" class="form-label">Capacidad del tanque de combustible</label>
                         <input asp-for="TankCapacity" class="form-control" />
                         @*<span asp-validation-for="TankCapacity" class="text-danger"></span>*@
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="Odometer" class="form-label">Kilometraje Actual (Odometro)</label>
+                        <input asp-for="Odometer" class="form-control" />
+                        <span asp-validation-for="Odometer" class="text-danger"></span>
                     </div>
                 </div>
                 <br />

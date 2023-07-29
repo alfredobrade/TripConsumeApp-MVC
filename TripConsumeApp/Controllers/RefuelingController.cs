@@ -10,10 +10,12 @@ namespace TripConsumeApp.Controllers
     public class RefuelingController : Controller
     {
         private readonly IRefuelingService _service;
+        private readonly IVehicleService _vehicleService;
 
-        public RefuelingController(IRefuelingService service)
+        public RefuelingController(IRefuelingService service, IVehicleService vehicleService)
         {
             _service = service;
+            _vehicleService = vehicleService;
         }
 
         // GET: RefuelingController
@@ -34,13 +36,17 @@ namespace TripConsumeApp.Controllers
                         DateTime = item.DateTime,
                         Amount = item.Amount,
                         Liters = item.Liters,
-                        Kilometers = item.Kilometers,
-                        KmPerLiter = (item.Kilometers / item.Liters),
-                        Liters100Km = (item.Liters / (item.Kilometers / 100)),
                         Comments = item.Comments,
                         VehicleId = item.VehicleId,
                         VehicleName = vehicleName
                     };
+
+                    if (item.FullCharged)
+                    {
+                        result.Kilometers = item.Kilometers;
+                        result.KmPerLiter = (item.Kilometers / item.Liters);
+                        result.Liters100Km = (item.Liters / (item.Kilometers / 100));
+                    }
                     resultList.Add(result);
 
 
@@ -74,14 +80,36 @@ namespace TripConsumeApp.Controllers
         // POST: RefuelingController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> NewRefueling(Refueling refueling)
+        public async Task<ActionResult> NewRefueling(RefuelingVM refuelingVM)
         {
             try
             {
-                refueling.Id = 0; //TODO: no se porque puta me llega el Id igual que el VehicleId
+                refuelingVM.Id = 0; //TODO: no se porque puta me llega el Id igual que el VehicleId
+                var vehicle = await _vehicleService.Get(refuelingVM.VehicleId);
+
+                var refueling = new Refueling()
+                {
+                    Amount = refuelingVM.Amount,
+                    Liters = refuelingVM.Liters,
+                };
+                //si ingresó Km recorridos
+                if (refuelingVM.Odometer == null)
+                {
+                    refueling.Kilometers = refuelingVM.Kilometers;
+                    vehicle.Odometer = vehicle.Odometer + (int)refuelingVM.Kilometers;
+                    await _vehicleService.Update(vehicle);
+                }
+                //si ingresó Odometro
+                if (refuelingVM.Odometer != null)
+                {
+                    refuelingVM.Kilometers = refuelingVM.Odometer - vehicle.Odometer;
+                    vehicle.Odometer = refuelingVM.Odometer;
+                    await _vehicleService.Update(vehicle);
+                }
+
                 await _service.Create(refueling);
                 //int Id = refueling.VehicleId;
-                return RedirectToAction("Index", "Refueling", new { Id = refueling.VehicleId }); //el tercer parametro era un objeto por eso le pase de esta manera
+                return RedirectToAction("Index", "Refueling", new { Id = refuelingVM.VehicleId }); //el tercer parametro era un objeto por eso le pase de esta manera
             }
             catch
             {

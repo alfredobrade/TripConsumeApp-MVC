@@ -1,4 +1,4 @@
-﻿@model TripConsumeApp.Entities.Refueling
+﻿@model RefuelingVM
 
 @{
     ViewData["Title"] = "NewRefueling";
@@ -6,7 +6,7 @@
 }
 
 <form method="post" asp-action="NewRefueling">
-    
+
     <div class="border p-3">
 
         <div asp-validation-summary="ModelOnly" class="text-danger">
@@ -18,11 +18,11 @@
         </div>
         <div class="container">
             @*<div class="row">
-                <div class="col-md-6">
-                    <label asp-for="DateTime" class="form-label">FechaHora</label>
-                    <input asp-for="DateTime" class="form-control" />
-                    <span asp-validation-for="DateTime" class="text-danger"></span>
-                </div>
+            <div class="col-md-6">
+            <label asp-for="DateTime" class="form-label">FechaHora</label>
+            <input asp-for="DateTime" class="form-control" />
+            <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
             </div>*@
             <div class="row">
                 <div class="col-md-6">
@@ -31,20 +31,44 @@
                     <span asp-validation-for="Amount" class="text-danger"></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label asp-for="Kilometers" class="form-label">Distancia Recorrida</label>
-                    <input asp-for="Kilometers" class="form-control" />
-                    <span asp-validation-for="Kilometers" class="text-danger"></span>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-6">
                     <label asp-for="Liters" class="form-label">Litros Cargados</label>
                     <input asp-for="Liters" class="form-control" />
                     <span asp-validation-for="Liters" class="text-danger"></span>
                 </div>
-
+                <div>
+                    <p>El tanque se llenó completamente?</p>
+                    <label>
+                        <input type="checkbox" asp-for="FullCharged" value="true"> Sí
+                    </label>
+                    <label>
+                        <input type="checkbox" asp-for="FullCharged" value="false"> No
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="alert alert-info">
+                    <p>Coloca los KM del tablero tu vehiculo al cargar el combustible</p>
+                </div>
+                <div class="alert alert-warning">
+                    <p>Recorda completar solo una de las dos opciones!! (Odometro o Distancia Recorrida)</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Odometer" class="form-label">Kilometraje Actual (Odometro)</label>
+                    <input asp-for="Odometer" class="form-control" />
+                    <span asp-validation-for="Odometer" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label asp-for="Kilometers" class="form-label">Distancia Recorrida</label>
+                    <input asp-for="Kilometers" class="form-control" />
+                    <span asp-validation-for="Kilometers" class="text-danger"></span>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">

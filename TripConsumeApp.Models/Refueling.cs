@@ -15,6 +15,7 @@ namespace TripConsumeApp.Entities
         public DateTime? DateTime { get; set; }
         public double? Amount { get; set; }
         public double? Liters { get; set; }
+        public bool FullCharged { get; set; } = false;
         public double? Kilometers { get; set; }
         public string? Comments { get; set; }
 
