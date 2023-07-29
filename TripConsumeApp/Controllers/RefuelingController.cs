@@ -41,7 +41,7 @@ namespace TripConsumeApp.Controllers
                         VehicleName = vehicleName
                     };
 
-                    if (item.FullCharged)
+                    if (item.IsFullCharged)
                     {
                         result.Kilometers = item.Kilometers;
                         result.KmPerLiter = (item.Kilometers / item.Liters);
@@ -71,7 +71,7 @@ namespace TripConsumeApp.Controllers
         // GET: RefuelingController/Create
         public async Task<ActionResult> NewRefueling(int Id)
         {
-            var refueling = new Refueling();
+            var refueling = new RefuelingVM();
             refueling.VehicleId = Id;
 
             return View(refueling);

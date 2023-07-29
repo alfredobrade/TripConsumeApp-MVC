@@ -6,7 +6,7 @@
         public DateTime? DateTime { get; set; }
         public double? Amount { get; set; }
         public double? Liters { get; set; }
-        public bool FullCharged { get; set; }
+        public bool IsFullCharged { get; set; }
         public int? Odometer { get; set; }
         public double? Kilometers { get; set; }
         public double? Liters100Km { get; set; }
