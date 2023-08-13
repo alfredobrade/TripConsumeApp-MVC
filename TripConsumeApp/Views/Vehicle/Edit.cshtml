@@ -47,6 +47,13 @@
                         @*<span asp-validation-for="TankCapacity" class="text-danger"></span>*@
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label asp-for="Odometer" class="form-label">Kilometraje Actual (Odometro)</label>
+                        <input asp-for="Odometer" class="form-control" />
+                        <span asp-validation-for="Odometer" class="text-danger"></span>
+                    </div>
+                </div>
                 <br />
                 <div class="d-grid gap-2 d-md-block">
                     <button type="submit" class="btn btn-primary">Editar</button>

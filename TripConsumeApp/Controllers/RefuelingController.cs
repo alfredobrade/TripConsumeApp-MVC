@@ -91,6 +91,9 @@ namespace TripConsumeApp.Controllers
                 {
                     Amount = refuelingVM.Amount,
                     Liters = refuelingVM.Liters,
+                    VehicleId = refuelingVM.VehicleId,
+                    IsFullCharged = refuelingVM.IsFullCharged,
+                    Comments = refuelingVM.Comments,
                 };
                 //si ingresó Km recorridos
                 if (refuelingVM.Odometer == null)
